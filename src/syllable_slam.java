@@ -8,10 +8,9 @@ public class syllable_slam {
     public static void main(String[] args) throws FileNotFoundException, IOException {
 
         Scanner scanner = new Scanner(System.in);
-
+        System.out.print("Enter a word: ");
         String word = scanner.nextLine();
-
-        System.out.println(syllableCount(getSyllableArray("count")));
+        System.out.println(syllableCount(getSyllableArray(word)));
 
     }
 
@@ -25,6 +24,10 @@ public class syllable_slam {
                     return syllables;
                 }
             }
+        } catch (Exception e){
+            System.out.println("cant find dataset");
+            
+            // will add the average method later which just get the average of words the same length.
         }
         return syllables;
     }
