@@ -4,20 +4,22 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+
 /**
   * Class that predicts the number of syllables in a word
   */
 public class SyllableSlam {
+
     public static void main(String[] args) throws FileNotFoundException, IOException {
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a word: ");
-        String word = scanner.nextLine();
-        System.out.println(syllableCount(getSyllableArray(word)));
-
+        String word = scanner.nextLine().toLowerCase();
+        System.out.println("Estimated number of syllables = " + syllableCount(word));
+        scanner.close();
     }
 
-    public static String[] getSyllableArray(String word) throws FileNotFoundException, IOException {
+    public static String[] getSyllableArray(String word) { // throws FileNotFoundException, IOException 
         String[] syllables = {};
         try (BufferedReader reader = new BufferedReader(new FileReader("Syllables.txt"))) {
             for (String line; (line = reader.readLine()) != null;) {
@@ -29,19 +31,19 @@ public class SyllableSlam {
             }
         } catch (Exception e){
             System.out.println("cant find dataset");
-            
-            // will add the average method later which just get the average of words the same length.
         }
         return syllables;
     }
 
-    public static int syllableCount(String[] syllables) {
-        int count = 0;
-        for(int i = 0; i< syllables.length; i++ ){
-            count++;
+    public static int syllableCount(String word) {
 
-        }
-        return count;
+        String[] syllables = getSyllableArray(word);
+        
+        if (syllables.length == 0) {
+            return SyllableCounter.count(word);
+        } 
+
+        return syllables.length;
     }
 
 }
