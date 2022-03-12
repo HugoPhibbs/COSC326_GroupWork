@@ -5,7 +5,7 @@ By Ben Forde, Hugo Phibbs and Laurel Hubbard.
 - Extract the zip folder, this is the top level directory for the next steps
 - To compile SyllableSlam enter:
 ```shell
-something
+something 
 ```
 - Then to run enter:
 ```shell
