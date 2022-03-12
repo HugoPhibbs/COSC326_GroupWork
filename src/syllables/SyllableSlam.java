@@ -1,3 +1,5 @@
+package syllables;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -20,7 +22,7 @@ public class SyllableSlam {
     }
 
     /**
-     * Starts the SyllableSlam program
+     * Starts the syllables.SyllableSlam program
      */
     public void start() {
         ArrayList<String> words = inputWords();
