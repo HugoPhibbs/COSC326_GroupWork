@@ -15,7 +15,10 @@ import java.util.regex.Pattern;
   */
 public class SyllableSlam {
 
-    BufferedReader datasetReader = readDataSet();
+    /**
+     * BufferedReader object that can be used to access the syllable dataset from http://www.delphiforfun.org/programs/Syllables.htm
+     */
+    private final BufferedReader datasetReader = readDataSet();
 
     public static void main(String[] args){
         new SyllableSlam().start();
@@ -181,7 +184,7 @@ public class SyllableSlam {
 
         int counter = 0;
 
-        // (1) Define a regular expression to find all of the vowel groups (syllables)
+        // (1) Define a regular expression to find all the vowel groups (syllables)
 
         // For more information about how this works, refer to the Java Pattern Class documentation at
 
@@ -190,7 +193,7 @@ public class SyllableSlam {
         // (?i)                     ; Ignore the lettercase for when searching for the subsequences
         // [aeiouy]                 ; Match any of the vowels [a,e,i,o,u,y]
         // *                        ; This is the greedy quantifier. Matches if preceding pattern in brackets has zero, one or more occurences
-        // (?i)[aeiouy][aeiouy]*    ; Matches any case insensitive vowel subsequence that starts with [aA,eE,iI,oO,uU,yY] and is followed with any number of [aA,eE,iI,oO,uU,yY]
+        // (?i)[aeiouy][aeiouy]*    ; Matches any case-insensitive vowel subsequence that starts with [aA,eE,iI,oO,uU,yY] and is followed with any number of [aA,eE,iI,oO,uU,yY]
 
         String regex = "(?i)[aeiouy][aeiouy]*";
 
@@ -198,7 +201,7 @@ public class SyllableSlam {
 
         Matcher match = Pattern.compile(regex).matcher(word);
 
-        // (3) Loop the Matcher Class find() method until the regex has matched all of the syllable subsequences in the inputWord
+        // (3) Loop the Matcher Class find() method until the regex has matched all the syllable subsequences in the inputWord
 
         while (match.find()) {
             counter++;
