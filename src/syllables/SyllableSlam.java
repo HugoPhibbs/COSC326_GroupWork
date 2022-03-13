@@ -45,7 +45,7 @@ public class SyllableSlam {
                 System.out.println(syllableCount(word));
             }
             else {
-                System.out.printf("'%s' word is not valid!\n", word);
+                System.out.printf("'%s' word is not valid! - It must be a word containing only letters with no whitespace and cannot be empty!\n", word);
             }
         }
     }
