@@ -16,9 +16,9 @@ import java.util.regex.Pattern;
 public class SyllableSlam {
 
     /**
-     * BufferedReader object that can be used to access the syllable dataset from http://www.delphiforfun.org/programs/Syllables.htm
+     * FileInputStream that can be used to access the syllables dataset
      */
-    private final BufferedReader datasetReader = readDataSet();
+    private final FileInputStream dataSetFis = dataSetFis();
 
     public static void main(String[] args){
         new SyllableSlam().start();
@@ -77,14 +77,15 @@ public class SyllableSlam {
     public String[] getSyllableArray(String word) { // throws FileNotFoundException, IOException
         String[] syllables = {};
         try {
-            String line = datasetReader.readLine();
+            BufferedReader dataSetReader = newDataSetReader();
+            String line = dataSetReader.readLine();
             while (line != null) {
                 String[] wordArray = line.split("=");
                 if (wordArray[0].equals(word)) {
                     syllables = wordArray[1].split("�");
                     return syllables;
                 }
-                line = datasetReader.readLine();
+                line = dataSetReader.readLine();
             }
         }
         catch (IOException ioe){
@@ -95,20 +96,39 @@ public class SyllableSlam {
     }
 
     /**
-     * Reads the dataset containing words and their syllables
+     * Reads the Syllables.txt dateset and returns a FileInputStream that can be used to access this dataset
      *
-     * @return BufferReader object that can be used to access the dataset
+     * @return FileInputStream as described
      */
-    private BufferedReader readDataSet() {
+    private FileInputStream dataSetFis() {
         try {
-            return new BufferedReader(new FileReader("./resources/Syllables.txt"));
-        }
-        catch (FileNotFoundException fnfe) {
-            System.out.println(fnfe.toString());
+            return new FileInputStream("./resources/Syllables.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
             System.exit(-1);
         }
         return null;
     }
+
+    /**
+     * Resets and returns a new reader for the dataset.
+     * This is a primitive way to make sure that any searches of the dataset start at the beginning of the dataset.
+     *
+     * This is described here https://stackoverflow.com/questions/5421653/reset-buffer-with-bufferedreader-in-java
+     *
+     * @return a new BufferedReader object that can be used to read the syllables dataset
+     */
+    private BufferedReader newDataSetReader() {
+        try {
+            dataSetFis.getChannel().position(0); // Resets the FIS to the start of the file
+        }
+        catch (IOException ioe) {
+            ioe.printStackTrace();
+            System.exit(-1);
+        }
+        return new BufferedReader(new InputStreamReader(dataSetFis));
+    }
+
 
     /**
      * Checks if an inputted string contains white space or not
